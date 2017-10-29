@@ -1,0 +1,5 @@
+SUBDIRS = src
+dist_doc_DATA = README.md
+
+ACLOCAL_AMFLAGS = -I src/m4
+@CODE_COVERAGE_RULES@
