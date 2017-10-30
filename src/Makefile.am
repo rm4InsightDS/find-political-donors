@@ -26,5 +26,3 @@ SUBDIRS = . unittests
 ACLOCAL_AMFLAGS = -I $(top_srcdir)/src/m4
 
 
-
-
