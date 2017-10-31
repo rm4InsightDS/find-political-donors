@@ -8,7 +8,7 @@
 
 class RunningMedianByZipCalculator {
 public:
-    RunningMedianByZipCalculator();
+    RunningMedianByZipCalculator() = default;
     ~RunningMedianByZipCalculator() = default;
 
     void put(const std::string& recipient, const std::string& zip, uint64_t amount);

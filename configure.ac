@@ -24,7 +24,7 @@ AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AC_REQUIRE_AUX_FILE([tap-driver.sh])
 AM_PROG_AR
-AX_CHECK_COMPILE_FLAG([-std=c++14], [CXXFLAGS="$CXXFLAGS -std=c++14"], AC_MSG_ERROR("g++ does not support c++14")) 
+AX_CHECK_COMPILE_FLAG([-std=c++14], [CXXFLAGS="$CXXFLAGS -std=c++14"], [AC_MSG_ERROR("g++ does not support c++14")]) 
 AX_CODE_COVERAGE
  
 LT_INIT([disable-shared])

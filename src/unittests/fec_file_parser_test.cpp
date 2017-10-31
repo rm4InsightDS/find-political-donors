@@ -1,7 +1,6 @@
 #include <fec_file_parser.h>
 #include <iostream>
 #include <sstream>
-#include <cassert>
 #include <vector>
 #include <functional>
 #include <string>
@@ -154,6 +153,22 @@ C00177436|N|M2|P|201702039042410894|15|IND|DEEHAN, WILLIAM N|ALPHARETTA|GA|30004
         return true;
     }});
 
+    unittests.push_back( UnitTest {"Invalid zip", [&]() -> bool {
+        sstream ss;
+        ss <<
+R"(C00177436|N|M2|P|201702039042410894|15|IND|DEEHAN, WILLIAM N|ALPHARETTA|GA||UNUM|SVP, SALES, CL|01312017|384||PR2283873845050|1147350||P/R DEDUCTION ($192.00 BI-WEEKLY)|4020820171370029337
+C00177436|N|M2|P|201702039042410894|15|IND|DEEHAN, WILLIAM N|ALPHARETTA|GA|3000|UNUM|SVP, SALES, CL|01312017|384||PR2283873845050|1147350||P/R DEDUCTION ($192.00 BI-WEEKLY)|4020820171370029337
+C00177436|N|M2|P|201702039042410894|15|IND|DEEHAN, WILLIAM N|ALPHARETTA|GA|INVALIDZIP|UNUM|SVP, SALES, CL|01312017|384||PR2283873845050|1147350||P/R DEDUCTION ($192.00 BI-WEEKLY)|4020820171370029337)";
+        FecFileParser fecParser {&ss};
+        auto recordsBlock = fecParser.getNextRecordsBlock();
+        if ( !fecParser.isEof() ) return false;
+        if ( recordsBlock.size() != 3 ) return false;
+        for (auto&& record : recordsBlock) {
+            if (!record.ZIP_CODE.empty()) return false;
+        }
+        return true;
+
+    }});
 
     unittests.push_back( UnitTest {"List of records", [&]() -> bool {
         sstream ss;

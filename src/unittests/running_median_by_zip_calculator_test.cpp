@@ -28,7 +28,6 @@ struct UnitTest {
 
 int
 main (int argc, char *argv[]) {
-    tuple<string,string,uint64_t> t { "11", "11", 11 };
     vector<UnitTest> unittests;
     unittests.push_back( UnitTest {"Simple test", [&]() -> bool {
         RunningMedianByZipCalculator calc;
@@ -52,7 +51,6 @@ main (int argc, char *argv[]) {
         }
         return true;
     }});
-
     cout << "1.." << unittests.size() << endl;
     int retcode = 0;
     for (size_t i = 0; i < unittests.size(); ++i) {

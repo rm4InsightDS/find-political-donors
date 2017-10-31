@@ -6,11 +6,8 @@
 
 using std::string;
 
-RunningMedianByZipCalculator::RunningMedianByZipCalculator() {
-
-}
-
 void RunningMedianByZipCalculator::put(const string& recipient, const string& zip, uint64_t amount){
+    if (zip.empty()) return;
     const string key = recipient + zip;
     auto& record = transactionsByZipAndRecipient_[key];
     auto iter = std::lower_bound( begin(record.transactions), end(record.transactions), amount );

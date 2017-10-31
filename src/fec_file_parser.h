@@ -7,15 +7,11 @@
 #include <vector>
 #include <array>
 
+#include "date.h"
 
 struct FecFileRecord {
 	 std::string CMTE_ID;
 	 std::string ZIP_CODE;
-	 struct Date{
-		 unsigned int YEAR;
-		 unsigned int MONTH;
-		 unsigned int DAY;
-	 };
 	 Date TRANSACTION_DT;
 	 uint64_t TRANSACTION_AMT;
 };
