@@ -1,4 +1,4 @@
-#Solution approach
+# Solution approach
 
 The program reads input file line-by-line. File medianvals_by_zip.txt is being created line by line, in small batches, as the reading of the input file advances.
 File medianvals_by_date.txt however, is being generated all at once, after entire input file has been read. While generating, all lines are sorted using counting sort, which has linear time complexity.
