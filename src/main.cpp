@@ -4,6 +4,7 @@
 #include <experimental/filesystem>
 #include <fstream>
 #include <string>
+#include <iomanip>
 
 #include "fec_file_parser.h"
 #include "running_median_by_date_calculator.h"
@@ -15,6 +16,8 @@ using std::tuple;
 using std::string;
 using std::fstream;
 using std::ios;
+using std::setfill;
+using std::setw;
 using std::experimental::filesystem::path;
 namespace fs = std::experimental::filesystem;
 using ResultsRow = RunningMedianByDateCalculator::ResultsRow;
@@ -58,19 +61,19 @@ public:
         for (auto&& row : resultsByDateTable) {
             string recipient;
             recipient = row->key.substr(0, row->key.length() - 8);
+            string dataStr = row->key.substr(row->key.length() - 8);;
             Date date;
-            date.YEAR  = std::stoul( row->key.substr(row->key.length() - 8, row->key.length() - 4) );
-            date.MONTH = std::stoul( row->key.substr(row->key.length() - 4, row->key.length() - 2) );
-            date.DAY   = std::stoul( row->key.substr(row->key.length() - 2) );
+            date.YEAR  = std::stoul( dataStr.substr(0, 4) );
+            date.MONTH = std::stoul( dataStr.substr(4, 2) );
+            date.DAY   = std::stoul( dataStr.substr(6, 2) );
             medianvalsByDateStream_ << recipient
-                            << "|" << date.MONTH << date.DAY << date.YEAR
+                            << "|" << setfill('0')<< setw(2) << date.MONTH << setfill('0')<< setw(2) << date.DAY << date.YEAR
                             << "|" << row->medianAmount
                             << "|" << row->totalNumber
                             << "|" << row->totalAmount
                             << "\n";
         }
         medianvalsByDateStream_.flush();
-
     }
 
 private:
